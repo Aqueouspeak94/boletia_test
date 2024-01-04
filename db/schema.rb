@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_04_023932) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_04_090250) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_04_023932) do
 
   create_table "currency_updates", force: :cascade do |t|
     t.datetime "currency_update"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "http_request_histories", force: :cascade do |t|
+    t.datetime "start_time"
+    t.float "total_time"
+    t.boolean "success"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
