@@ -5,10 +5,25 @@ require 'json'
 class CurrencyService
   include HTTParty
   base_uri 'https://api.currencyapi.com/v3/latest?'
+  default_timeout ENV['timeout_currency_api'].to_f
 
   def latest_currencies
+    start_time = Time.now
     @response = self.class.get('/latest', query: { apikey: ENV['currency_api_key'] })
     parse_currencies
+    success = true
+  rescue Net::OpenTimeout, Net::ReadTimeout => e
+    success = false
+  ensure
+    create_http_request_history(start_time, success)
+  end
+
+  private
+
+  def create_http_request_history(start_time, success)
+    finish_time = Time.now
+    total_time = Time.at(finish_time - start_time).utc.strftime('%H:%M:%S')
+    HttpRequestHistory.create!({ start_time: start_time, total_time: total_time, success: success })
   end
 
   def parse_currencies
