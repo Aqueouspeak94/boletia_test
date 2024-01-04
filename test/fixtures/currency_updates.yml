@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  currency_update: 2024-01-03 18:36:12
+
+two:
+  currency_update: 2024-01-03 18:36:12
